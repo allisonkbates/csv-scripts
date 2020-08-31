@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.section {
+  padding: 2rem 4rem;
+}
+
+.jsonContainer {
+  padding: 2rem;
+  background-color: #333;
+  color: white;
+  min-height: 500px;
+  min-width: 300px;
+}
+
+button {
+  margin: 0px 16px 0px 0px;
+}
