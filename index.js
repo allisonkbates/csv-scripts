@@ -80,7 +80,11 @@ function categorizeIndustry() {
     let subIndustry = account.subIndustry;
     let industryAM;
 
-    if (catAccountName.includes('high school') || catAccountName.includes('senior high')) {
+    if (subIndustry != null || subIndustry != undefined ) {
+      industryAM = subIndustry;
+    }
+
+    else if (catAccountName.includes('high school') || catAccountName.includes('senior high')) {
       industryAM = "High School";
     } 
     else if (catAccountName.includes('middle school') || catAccountName.includes('junior high')) {
@@ -93,14 +97,14 @@ function categorizeIndustry() {
       industryAM = "Higher Education";
     } 
     else if (catAccountName.includes('library')) {
-      industryAM = "Library";
-    } 
-    else if (catAccountName.includes('school district') || catAccountName.includes('charter school') || catAccountName.includes('academy') || catAccountName.includes('board of education') || catAccountName.includes('schools') || catAccountName.includes('public school') || catAccountName.includes('school')) {
+      industryAM = "Library/Makerspace";
+    }
+    else if (catAccountName.includes('school district') || catAccountName.includes('district')) {
+      industryAM = "District";
+    }
+    else if (catAccountName.includes('charter school') || catAccountName.includes('academy') || catAccountName.includes('board of education') || catAccountName.includes('schools') || catAccountName.includes('public school') || catAccountName.includes('school')) {
       industryAM ="General K-12";
     }
-    else if (subIndustry != null || subIndustry != undefined) {
-      industryAM = subIndustry;
-    } 
     else {
       industryAM = "General Education";
     }
