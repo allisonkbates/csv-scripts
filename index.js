@@ -133,26 +133,42 @@ function categorizeEmail() {
     return formattedAccount;
   }).map(account => {
     let email = account.email;
+    let userType = account.userType;
+    let industry = account.industry;
     let catEmail = account.catEmail;
     let industryAM;
 
-    if (catEmail.includes('.edu') || catEmail.includes('.k12.us')) {
+    if (catEmail.includes('@makerbot.com')) {
+      industryAM = 'MakerBot';
+      userType = 'Internal';
+    }
+    else if (industry !== null ) {
+      industryAM = industry;
+      userType = 'External';
+    }
+    else if (catEmail.includes('.edu') || catEmail.includes('.k12.us')) {
       industryAM = 'Education';
+      userType = 'External';
     }
     else if (catEmail.includes('.gov')) {
       industryAM = 'Government';
-    }
-    else if (catEmail.includes('@makerbot.com')) {
-      industryAM = 'MakerBot';
+      userType = 'External';
     }
     else if (catEmail.includes('@gmail.com') || catEmail.includes('googlemail')) {
       industryAM = 'Gmail';
-    } else {
+      userType = 'External';
+    }
+    else if (catEmail.includes('@yahoo.com') || catEmail.includes('@hotmail.com')) {
+      industryAM = 'Personal Email';
+      userType = 'External';
+    }
+    else {
       industryAM = 'Uncategorized';
     }
     const categorizedAccount = {
       email: email,
-      industryAM: industryAM
+      industryAM: industryAM,
+      userType: userType
     }
     return categorizedAccount;
   })
