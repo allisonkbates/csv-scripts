@@ -19,7 +19,7 @@ function loadFile(event) {
   const reader = new FileReader(); // read the file with FileReader (Web API)
   reader.onload = function(e) { // this function is called when the reader reads the file
     json = d3.csvParse(e.target.result, d3.autoType); // use d3-dsv to parse the CSV - see https://github.com/d3/d3-dsv#autoType
-    updateContainer((JSON.stringify(json, null, 4))); // formats json for use in HTML - update to output to json container
+    updateContainer((JSON.stringify(json, null, 5))); // formats json for use in HTML - update to output to json container
     showTools();// make tools available at this time to manipulate the file
   }
   reader.readAsText(file); // reader reads the text of the file, triggering the "onload" function above
@@ -117,7 +117,7 @@ function categorizeIndustry() {
     return categorizedAccount;
   });
   console.log(finalAccounts);
-  updateContainer(JSON.stringify(finalAccounts, null , 4));
+  updateContainer(JSON.stringify(finalAccounts, null , 5));
 }
 
 function categorizeEmail() {
@@ -137,45 +137,50 @@ function categorizeEmail() {
     let industry = account.industry;
     let catEmail = account.catEmail;
     let industryAM;
+    let domain;
 
     if (catEmail.includes('@makerbot.com')) {
       industryAM = 'MakerBot';
+      industry = industry;
+      domain = 'MakerBot';
       userType = 'Internal';
     }
-    else if (userType.includes('internal')) {
-      industryAM = 'MakerBot';
-    }
-    else if (industry != null ) {
+/*    else if (industry != null || industry != undefined) {
       industryAM = industry;
       userType = 'External';
-    }
+    } */
     else if (catEmail.includes('.edu') || catEmail.includes('.k12.us')) {
       industryAM = 'Education';
       userType = 'External';
+      domain = 'Edu Domain';
+      industry = industry;
     }
     else if (catEmail.includes('.gov')) {
-      industryAM = 'Government';
       userType = 'External';
+      domain = 'Gov Domain'
     }
     else if (catEmail.includes('@gmail.com') || catEmail.includes('googlemail')) {
-      industryAM = 'Gmail';
       userType = 'External';
+      domain = 'Gmail Domain'
     }
     else if (catEmail.includes('@yahoo.com') || catEmail.includes('@hotmail.com')) {
-      industryAM = 'Personal Email';
       userType = 'External';
+      domain = 'Personal Email Domain';
     }
     else {
-      industryAM = 'Uncategorized';
+      userType = 'External';
+      domain = 'Uncategorized';
     }
     const categorizedAccount = {
       email: email,
+      industry: industry,
       industryAM: industryAM,
-      userType: userType
+      userType: userType,
+      domain: domain
     }
     return categorizedAccount;
   })
-  updateContainer(JSON.stringify(finalAccounts, null , 4));
+  updateContainer(JSON.stringify(finalAccounts, null , 5));
 }
 
 function copyToClipboard() {
