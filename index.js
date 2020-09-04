@@ -142,7 +142,7 @@ function categorizeEmail() {
       industryAM = 'MakerBot';
       userType = 'Internal';
     }
-    else if (userType.includes('Internal')) {
+    else if (userType.includes('internal')) {
       industryAM = 'MakerBot';
     }
     else if (industry != null ) {
